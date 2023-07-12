@@ -9,6 +9,8 @@ from tqdm import tqdm
 import urllib.request
 import urllib
 import math
+from fake_useragent import UserAgent
+
 
 
 def get_browser():
@@ -26,7 +28,8 @@ def save_image_from_url(url, file_path):
     for _ in range(10):  # 下载不成功，那就重试一百次
         try:
             openhead=urllib.request.build_opener()
-            openhead.addheaders = [("User-Agent", "Mozilla/5.0")]
+            # openhead.addheaders = [("User-Agent", "Mozilla/5.0")]
+            openhead.addheaders = [("User-Agent", UserAgent().random)]
             urllib.request.install_opener(openhead)
             urllib.request.urlretrieve(url, file_path)
             print('Image downloaded successfully.')
